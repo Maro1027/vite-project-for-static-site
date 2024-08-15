@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 import sassGlobImports from 'vite-plugin-sass-glob-import';
 
 // const jsFiles = Object.fromEntries(
-//   globSync('src/**/*.js', { ignore: ['node_modules/**','**/modules/**','**/dist/**']}).map(file => [
+//   globSync('src/**/*.js', { ignore: ['node_modules/**','**/modules/**','**/dist/**','src/public/**']}).map(file => [
 //     path.relative(
 //       'src',
 //       file.slice(0, file.length - path.extname(file).length)
@@ -14,15 +14,15 @@ import sassGlobImports from 'vite-plugin-sass-glob-import';
 //   ])
 // );
 
-const scssFiles = Object.fromEntries(
-  globSync('src/assets/styles/pages/**/*.scss', { ignore: ['src/assets/styles/pages/**/_*.scss'] }).map(file => [
-    path.relative(
-      'src',
-      file.slice(0, file.length - path.extname(file).length)
-    ),
-    fileURLToPath(new URL(file, import.meta.url))
-  ])
-);
+// const scssFiles = Object.fromEntries(
+//   globSync('src/assets/styles/pages/**/*.scss', { ignore: ['src/assets/styles/pages/**/_*.scss'] }).map(file => [
+//     path.relative(
+//       'src',
+//       file.slice(0, file.length - path.extname(file).length)
+//     ),
+//     fileURLToPath(new URL(file, import.meta.url))
+//   ])
+// );
 
 const htmlFiles = Object.fromEntries(
   globSync('src/**/*.html', { ignore: ['node_modules/**', '**/dist/**'] }).map(file => [
@@ -35,12 +35,11 @@ const htmlFiles = Object.fromEntries(
 );
 
 // const inputObject = { ...scssFiles, ...jsFiles, ...htmlFiles };
-const inputObject = { ...scssFiles, ...htmlFiles };
+const inputObject = { ...htmlFiles };
 
 export default defineConfig({
     root: "src",
     build: {
-        assetInlineLimit: 0, // asset が自動的に埋め込まれてしまうのを防ぐ
         outDir: resolve(__dirname, "dist"),
         emptyOutDir: true,
         rollupOptions: {
