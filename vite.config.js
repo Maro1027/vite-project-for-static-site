@@ -36,13 +36,10 @@ const htmlFiles = Object.fromEntries(
 
 const inputObject = { ...scssFiles, ...jsFiles, ...htmlFiles };
 
+console.log(inputObject)
+
 export default defineConfig({
-    assetInlineLimit: 0, 
     root: "src",
-    // アセットなどのパスを変換するベースとなるパス
-    // base: '/',
-    publicDir: "assets/img",
-    // publicDir: false,
     build: {
         outDir: resolve(__dirname, "dist"),
         emptyOutDir: true,
