@@ -4,15 +4,15 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from "vite";
 import sassGlobImports from 'vite-plugin-sass-glob-import';
 
-const jsFiles = Object.fromEntries(
-  globSync('src/**/*.js', { ignore: ['node_modules/**','**/modules/**','**/dist/**']}).map(file => [
-    path.relative(
-      'src',
-      file.slice(0, file.length - path.extname(file).length)
-    ),
-    fileURLToPath(new URL(file, import.meta.url))
-  ])
-);
+// const jsFiles = Object.fromEntries(
+//   globSync('src/**/*.js', { ignore: ['node_modules/**','**/modules/**','**/dist/**']}).map(file => [
+//     path.relative(
+//       'src',
+//       file.slice(0, file.length - path.extname(file).length)
+//     ),
+//     fileURLToPath(new URL(file, import.meta.url))
+//   ])
+// );
 
 const scssFiles = Object.fromEntries(
   globSync('src/assets/styles/pages/**/*.scss', { ignore: ['src/assets/styles/pages/**/_*.scss'] }).map(file => [
@@ -34,20 +34,20 @@ const htmlFiles = Object.fromEntries(
   ])
 );
 
-const inputObject = { ...scssFiles, ...jsFiles, ...htmlFiles };
-
-console.log(inputObject)
+// const inputObject = { ...scssFiles, ...jsFiles, ...htmlFiles };
+const inputObject = { ...scssFiles, ...htmlFiles };
 
 export default defineConfig({
     root: "src",
     build: {
+        assetInlineLimit: 0, // asset が自動的に埋め込まれてしまうのを防ぐ
         outDir: resolve(__dirname, "dist"),
         emptyOutDir: true,
         rollupOptions: {
           input: inputObject,
           output: {
-            entryFileNames: `[name].js`,
-            chunkFileNames: `[name].js`,
+            entryFileNames: `assets/js/[name].js`,
+            chunkFileNames: `assets/js/[name].js`,
             assetFileNames: (assetInfo) => {
               if (/\.( gif|jpeg|jpg|png|svg|webp| )$/.test(assetInfo.name)) {
                 return 'assets/img/[name].[ext]';
@@ -56,7 +56,7 @@ export default defineConfig({
                 return 'assets/css/[name].[ext]';
               }
               return 'assets/[name].[ext]';
-            }
+            },
           },
         }
     },
