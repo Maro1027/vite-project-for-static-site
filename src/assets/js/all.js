@@ -1,4 +1,9 @@
+// jQueryの読み込み
+import $ from 'jquery'
 import { setupCounter } from "./counter";
+import { jquerySetUpCounter } from "./jquerySetUpCounter";
 
-const button = document.querySelector('#counter');
-setupCounter(button);
+
+setupCounter(document.querySelector('#counter'));
+jquerySetUpCounter($('#jquery-button'));
+

@@ -13,3 +13,7 @@ https://www.npmjs.com/package/vite-plugin-sass-glob-import
 
 ## ビルド時のinput設定の時にディレクトリの自動取得する用
 "glob": "^11.0.0"
+
+## jQueryの使用
+"jquery": "^3.7.1"
+
